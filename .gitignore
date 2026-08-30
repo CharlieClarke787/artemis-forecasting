@@ -1,0 +1,20 @@
+# Credentials — never commit these
+credentials.json
+client_secrets.json
+token.json
+*.pickle
+
+# Personal data
+forecasts.db
+forecasts_export.csv
+forecasts_backup_*.zip
+dashboard.html
+calibration_chart.html
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
