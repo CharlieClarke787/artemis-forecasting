@@ -2,8 +2,8 @@ import sqlite3
 from datetime import datetime
 import json
 
-def calculate_analytics():
-    conn = sqlite3.connect('forecasts.db')
+def calculate_analytics(db_path='forecasts.db'):
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     
     # Get all forecasts with outcomes

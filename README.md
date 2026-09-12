@@ -34,6 +34,34 @@ python import_gjo.py
 python quick_forecast_gjo.py
 ```
 
+### Report-aligned draft predictions
+
+Generate deterministic, reviewable draft predictions from a published report. The
+importer only accepts statements explicitly labelled `Forecast watch` (or
+`Forecast-watch`) with a probability range such as `60-80%` or `0.2 to 0.4`.
+It accepts the report URL by default, or a local HTML cache:
+
+```bash
+python setup_db.py
+python report_drafts.py https://charlieclarke787.github.io/
+python report_drafts.py .\report-cache.html --db forecasts.db --assumptions "midpoint of published range"
+python view_dashboard.py
+python export_forecasts.py
+```
+
+Each import stores a SHA-256 report snapshot, source URL, title/date, retrieval
+time, generator version, and assumptions. Re-importing the same report is
+idempotent. Drafts are stored separately from `forecasts`, labelled
+**UNAPPROVED DRAFT** in the dashboard and export, and are excluded from Brier
+scores, calibration, win rate, leaderboard, and GJO comparisons until a human
+review workflow promotes them.
+
+Run the focused standard-library tests with:
+
+```bash
+python -m unittest -v test_report_drafts.py
+```
+
 ## Note on this repo
 
 `forecasts.db`, `dashboard.html`, and exported CSVs are excluded from version control (see `.gitignore`) since they contain personal forecast data. Running the scripts above will generate your own local copies. Google Drive backup (`backup_to_gdrive.py`) requires your own `credentials.json` from the [Google Cloud Console](https://console.cloud.google.com/) — this is never included in the repo and should never be committed.

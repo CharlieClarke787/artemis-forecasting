@@ -3,6 +3,7 @@ from datetime import datetime
 import json
 import sys
 import os
+from html import escape
 
 # Add the current directory to path for analytics import
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +40,17 @@ def view_forecasts():
     ''')
     
     forecasts = c.fetchall()
+    try:
+        c.execute('''
+        SELECT d.question, d.probability, d.rationale, d.status,
+               s.report_title, s.source_url, s.report_date
+        FROM draft_forecasts d
+        JOIN report_snapshots s ON s.id = d.snapshot_id
+        ORDER BY d.id DESC
+        ''')
+        draft_forecasts = c.fetchall()
+    except sqlite3.OperationalError:
+        draft_forecasts = []
     conn.close()
     
     # Get analytics
@@ -365,7 +377,7 @@ def view_forecasts():
         </div>
 '''
     
-    if forecasts:
+    if forecasts or draft_forecasts:
         # Calculate stats
         total = len(forecasts)
         resolved = sum(1 for f in forecasts if f[6] != -1)
@@ -595,7 +607,7 @@ def view_forecasts():
                 
                 html += f'''
         <div class="forecast pending">
-            <div class="question">{question}</div>
+            <div class="question">{escape(str(question))}</div>
             <div class="probability-row">
                 <div class="probability-bar">
                     <div class="probability-fill {color_class}" style="width: {prob * 100}%;"></div>
@@ -605,7 +617,7 @@ def view_forecasts():
             <div class="meta">
                 <div>
                     <div class="meta-label">Forecaster</div>
-                    <div class="meta-value">{forecaster}</div>
+                    <div class="meta-value">{escape(str(forecaster))}</div>
                 </div>
                 <div>
                     <div class="meta-label">Date Added</div>
@@ -614,7 +626,7 @@ def view_forecasts():
             </div>
 '''
                 if rationale:
-                    html += f'<div class="rationale">Reasoning: {rationale}</div>'
+                    html += f'<div class="rationale">Reasoning: {escape(str(rationale))}</div>'
                 
                 html += '<span class="status pending">Pending</span></div>'
         
@@ -635,7 +647,7 @@ def view_forecasts():
                 
                 html += f'''
         <div class="forecast resolved">
-            <div class="question">{question}</div>
+            <div class="question">{escape(str(question))}</div>
             <div class="probability-row">
                 <div class="probability-bar">
                     <div class="probability-fill {color_class}" style="width: {prob * 100}%;"></div>
@@ -645,7 +657,7 @@ def view_forecasts():
             <div class="meta">
                 <div>
                     <div class="meta-label">Forecaster</div>
-                    <div class="meta-value">{forecaster}</div>
+                    <div class="meta-value">{escape(str(forecaster))}</div>
                 </div>
                 <div>
                     <div class="meta-label">Resolved</div>
@@ -654,9 +666,29 @@ def view_forecasts():
             </div>
 '''
                 if rationale:
-                    html += f'<div class="rationale">Reasoning: {rationale}</div>'
+                    html += f'<div class="rationale">Reasoning: {escape(str(rationale))}</div>'
                 
                 html += f'<span class="status resolved">Resolved: {"YES" if outcome == 1 else "NO"}</span></div>'
+        if draft_forecasts:
+            html += '<h2 class="section-title">Unapproved Report Drafts</h2>'
+            html += '<div class="empty">Generated drafts are informational only and excluded from all analytics until reviewed.</div>'
+            for question, prob, rationale, status, report_title, source_url, report_date in draft_forecasts:
+                html += f'''
+        <div class="forecast pending">
+            <div class="question">{escape(str(question))}</div>
+            <div class="probability-row">
+                <div class="probability-bar"><div class="probability-fill medium" style="width: {prob * 100:.0f}%;"></div></div>
+                <div class="probability-text" style="color: #6b4423;">{prob * 100:.0f}%</div>
+            </div>
+            <div class="meta">
+                <div><div class="meta-label">Status</div><div class="meta-value">{escape(str(status).upper())}</div></div>
+                <div><div class="meta-label">Report</div><div class="meta-value">{escape(str(report_title or 'Untitled'))}</div></div>
+                <div><div class="meta-label">Source</div><div class="meta-value">{escape(str(source_url))}</div></div>
+                <div><div class="meta-label">Report Date</div><div class="meta-value">{escape(str(report_date or 'Unknown'))}</div></div>
+            </div>
+            <div class="rationale">Reasoning: {escape(str(rationale))}</div>
+            <span class="status pending">UNAPPROVED DRAFT</span>
+        </div>'''
     else:
         html += '<div class="empty">No forecasts yet. Run: python add_forecast.py</div>'
     
