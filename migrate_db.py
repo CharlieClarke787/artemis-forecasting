@@ -14,4 +14,19 @@ except sqlite3.OperationalError as e:
     else:
         raise
 
+for statement in (
+    '''CREATE TABLE IF NOT EXISTS report_snapshots (
+        id INTEGER PRIMARY KEY, source_url TEXT NOT NULL, report_title TEXT,
+        report_date TEXT, content_hash TEXT NOT NULL UNIQUE, generator_version TEXT NOT NULL,
+        retrieved_at TEXT NOT NULL, assumptions TEXT NOT NULL)''',
+    '''CREATE TABLE IF NOT EXISTS draft_forecasts (
+        id INTEGER PRIMARY KEY, snapshot_id INTEGER NOT NULL, question TEXT NOT NULL,
+        probability REAL NOT NULL CHECK(probability >= 0 AND probability <= 1),
+        rationale TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'unapproved',
+        reviewed_by TEXT, reviewed_at TEXT, review_notes TEXT,
+        UNIQUE(snapshot_id, question), FOREIGN KEY(snapshot_id) REFERENCES report_snapshots(id))''',
+):
+    c.execute(statement)
+conn.commit()
+
 conn.close()
