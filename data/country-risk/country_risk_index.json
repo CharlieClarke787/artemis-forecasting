@@ -1,0 +1,54 @@
+[
+  {
+    "country_code": "RUS",
+    "country": "Russia",
+    "reference_year": 2024,
+    "government_score": null,
+    "macroeconomic_score": null,
+    "freedom_score": 88.0,
+    "composite_score": 88.0,
+    "risk_band": "very high",
+    "available_components": 1,
+    "missing_indicators": "government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp",
+    "qualitative_cross_check": "Country appears in repository sanctions examples; no qualitative briefing found."
+  },
+  {
+    "country_code": "IRN",
+    "country": "Iran",
+    "reference_year": 2024,
+    "government_score": null,
+    "macroeconomic_score": null,
+    "freedom_score": 89.0,
+    "composite_score": 89.0,
+    "risk_band": "very high",
+    "available_components": 1,
+    "missing_indicators": "government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp",
+    "qualitative_cross_check": "Country appears in repository sanctions examples; no qualitative briefing found."
+  },
+  {
+    "country_code": "VEN",
+    "country": "Venezuela",
+    "reference_year": 2024,
+    "government_score": null,
+    "macroeconomic_score": null,
+    "freedom_score": 87.0,
+    "composite_score": 87.0,
+    "risk_band": "very high",
+    "available_components": 1,
+    "missing_indicators": "government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp",
+    "qualitative_cross_check": "Country appears in repository sanctions examples; no qualitative briefing found."
+  },
+  {
+    "country_code": "SYR",
+    "country": "Syria",
+    "reference_year": 2024,
+    "government_score": null,
+    "macroeconomic_score": null,
+    "freedom_score": 95.0,
+    "composite_score": 95.0,
+    "risk_band": "very high",
+    "available_components": 1,
+    "missing_indicators": "government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp",
+    "qualitative_cross_check": "Country appears in repository sanctions examples; no qualitative briefing found."
+  }
+]

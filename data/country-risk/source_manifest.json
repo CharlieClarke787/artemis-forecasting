@@ -1,0 +1,16 @@
+{
+  "sources": [
+    "https://api.worldbank.org/v2/en/indicator/GE.EST?downloadformat=csv",
+    "https://api.worldbank.org/v2/en/indicator/PV.EST?downloadformat=csv",
+    "https://api.worldbank.org/v2/en/indicator/RL.EST?downloadformat=csv",
+    "https://api.worldbank.org/v2/en/indicator/CC.EST?downloadformat=csv",
+    "https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/RUS,IRN,VEN,SYR",
+    "https://www.imf.org/external/datamapper/api/v1/GGXWDG_NGDP/RUS,IRN,VEN,SYR",
+    "https://raw.githubusercontent.com/xmarquez/democracyData/84290a7f31375228cf83d059f587f81832c37d97/data-raw/fh_aggregate_scores_2003_2026.xlsx"
+  ],
+  "observations": {},
+  "warnings": [
+    "IMF NGDP_RPCH unavailable (403); component left missing.",
+    "IMF GGXWDG_NGDP unavailable (403); component left missing."
+  ]
+}
