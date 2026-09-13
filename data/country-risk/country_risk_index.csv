@@ -1,0 +1,5 @@
+country_code,country,reference_year,government_score,macroeconomic_score,freedom_score,composite_score,risk_band,available_components,missing_indicators,qualitative_cross_check
+RUS,Russia,2024,,,88.0,88.0,very high,1,government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp,Country appears in repository sanctions examples; no qualitative briefing found.
+IRN,Iran,2024,,,89.0,89.0,very high,1,government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp,Country appears in repository sanctions examples; no qualitative briefing found.
+VEN,Venezuela,2024,,,87.0,87.0,very high,1,government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp,Country appears in repository sanctions examples; no qualitative briefing found.
+SYR,Syria,2024,,,95.0,95.0,very high,1,government_effectiveness;political_stability;rule_of_law;control_of_corruption;real_gdp_growth;gross_debt_pct_gdp,Country appears in repository sanctions examples; no qualitative briefing found.

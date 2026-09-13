@@ -62,6 +62,22 @@ Run the focused standard-library tests with:
 python -m unittest -v test_report_drafts.py
 ```
 
+### Composite country risk index
+
+`country_risk_index.py` builds a transparent, reproducible 0–100 risk score
+from World Bank governance indicators, IMF macro indicators, and Freedom
+House's *Freedom in the World* aggregate score. The repository has no
+qualitative country-briefing files, so the initial scope is the four countries
+already named in `import_ofac_api.py`'s sanctions examples; each output row
+flags that no briefing was found. See
+[`docs/country-risk-index.md`](docs/country-risk-index.md) for definitions,
+weights, source URLs, years, missing-data handling, and limitations.
+
+```bash
+python country_risk_index.py --target-year 2024 --output-dir data\country-risk
+python -m unittest -v test_country_risk_index.py
+```
+
 ## Note on this repo
 
 `forecasts.db`, `dashboard.html`, and exported CSVs are excluded from version control (see `.gitignore`) since they contain personal forecast data. Running the scripts above will generate your own local copies. Google Drive backup (`backup_to_gdrive.py`) requires your own `credentials.json` from the [Google Cloud Console](https://console.cloud.google.com/) — this is never included in the repo and should never be committed.
